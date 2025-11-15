@@ -1,0 +1,19 @@
+# App & Interface
+streamlit==1.40.0
+plotly==5.22.0
+Pillow
+
+# Data Processing
+pandas==2.2.2
+numpy==1.26.4
+datasets
+scikit-image
+seaborn
+matplotlib
+
+# Deep Learning
+tensorflow==2.19.0
+keras==3.9.1
+ultralytics
+opencv-python-headless
+huggingface_hub
