@@ -7,7 +7,7 @@ import streamlit as st
 st.markdown(
     """
     <div style="text-align: center; font-size: 1.5rem; color: gray;">
-        Jedha Evaluation Tyres
+        Jedha Evaluation Tyres -test
     </div>
     """,
     unsafe_allow_html=True,
