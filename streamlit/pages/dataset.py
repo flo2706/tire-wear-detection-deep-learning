@@ -1,386 +1,124 @@
-# import streamlit as st
-# import streamlit.components.v1 as components
-# from huggingface_hub import list_repo_files
-# import matplotlib.pyplot as plt
-# import matplotlib.image as mpimg
-# import random
-# import requests
-# from io import BytesIO
-# import os
-# from PIL import Image
-# import pandas as pd
-# import numpy as np
-# import requests
-# import plotly.express as px
-# import seaborn as sns
-# from skimage.color import rgb2lab
-# import asyncio
-# import aiohttp
+import random
+from io import BytesIO
 
-# components.html(
-#     """
-#     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-#     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-#     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-
-#     <style>
-#       .card {
-#         border-radius: 12px;
-#         margin-bottom: 15px;
-#         box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-#       }
-#       .btn-link {
-#         font-size: 1.05rem;
-#         color: #444;
-#         text-decoration: none;
-#       }
-#       .btn-link:hover {
-#         color: #111;
-#       }
-#       pre {
-#         background-color: #f8f9fa;
-#         padding: 15px;
-#         border-radius: 8px;
-#         font-size: 0.85rem;
-#       }
-#       ul { padding-left: 1.2rem; }
-#     </style>
-
-#     <div class="container mt-4">
-#       <div class="row">
-#         <!-- Classification Dataset -->
-#         <div class="col-md-6">
-#           <div id="accordion1">
-#             <div class="card">
-#               <div class="card-header" id="head1">
-#                 <h5 class="mb-0">
-#                   <button class="btn btn-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="true">
-#                     🗂️ Dataset 1 : Classification (Inception_v3 / Kaggle)
-#                   </button>
-#                 </h5>
-#               </div>
-#               <div id="collapse1" class="collapse show" data-parent="#accordion1">
-#                 <div class="card-body">
-#                   <ul>
-#                     <li><strong>Lien Kaggle :</strong> <a href="https://www.kaggle.com/datasets/warcoder/tyre-quality-classification/data" target="_blank">Accéder</a></li>
-#                     <li><strong>Lien HuggingFace :</strong> <a href="https://huggingface.co/datasets/flodussart/tires_project_roboflow" target="_blank">Accéder</a></li>
-#                     <li><strong>Auteur :</strong> Chirag CHAUHAN</li>
-#                     <li><strong>Mis à jour :</strong> Il y a 2 ans</li>
-#                     <li><strong>Licence :</strong> <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a></li>
-#                   </ul>
-#                   <p>Ce dataset contient 1854 images réparties en deux classes : <strong>good</strong> et <strong>defective</strong>.</p>
-#                   <p>Utile pour entraîner des modèles de classification d’images pour la sécurité automobile.</p>
-
-#                   <pre>
-# Images numériques de pneus/
-# ├── defective/
-# │   ├── img1.jpg
-# │   ├── img2.jpg
-# │   └── ...
-# └── good/
-#     ├── img1.jpg
-#     ├── img2.jpg
-#     └── ...
-#                   </pre>
-#                 </div>
-#               </div>
-#             </div>
-#           </div>
-#         </div>
-
-#         <!-- Detection Dataset -->
-#         <div class="col-md-6">
-#           <div id="accordion2">
-#             <div class="card">
-#               <div class="card-header" id="head2">
-#                 <h5 class="mb-0">
-#                   <button class="btn btn-link" data-toggle="collapse" data-target="#collapse2" aria-expanded="true">
-#                     📦 Dataset 2 : Détection (YOLOv8 / Roboflow)
-#                   </button>
-#                 </h5>
-#               </div>
-#               <div id="collapse2" class="collapse show" data-parent="#accordion2">
-#                 <div class="card-body">
-#                   <ul>
-#                     <li><strong>Lien Roboflow :</strong> <a href="https://universe.roboflow.com/iotml/tire-dataset/dataset/2" target="_blank">Accéder</a></li>
-#                     <li><strong>Lien HuggingFace: </strong> <a href=https://huggingface.co/datasets/flodussart/tires_project" target="_blank">Accéder</a></li>
-#                     <li><strong>Titre :</strong> Tire Dataset – Computer Vision Project</li>
-#                     <li><strong>Année :</strong> 2022</li>
-#                   </ul>
-#                   <p>Ce dataset est formaté pour YOLOv8 avec annotations pour la <strong>détection d’objets</strong>. Il contient 1464 images de train, 191 images de val et 104 images de test.</p>
-
-#                   <pre>
-# Dataset de détection YOLOv8/
-# ├── train/
-# │   ├── images/
-# │   └── labels/
-# ├── valid/
-# │   ├── images/
-# │   └── labels/
-# ├── test/
-# │   ├── images/
-# │   └── labels/
-# ├── data.yaml
-# ├── README.dataset.txt
-# └── README.roboflow.txt
-#                   </pre>
-#                 </div>
-#               </div>
-#             </div>
-#           </div>
-#         </div>
-#       </div>
-#     </div>
-#     """,
-#     height=900
-# )
-
-
-# # Init session state for refresh buttons
-# if "refresh" not in st.session_state:
-#     st.session_state.refresh = 0
-
-# # Custom CSS for smaller text and centered headers
-# st.markdown("""
-#      <style>
-#         h1, h2, h3, h4, h5, h6 { text-align: center; }
-#         .markdown-text-container { font-size: 0.85rem !important; }
-#         .element-container img + div {
-#             font-size: 0.75rem !important;
-#             text-align: center;
-#             color: #555;
-#         }
-#     </style>
-# """, unsafe_allow_html=True)
-
-# # ---- ASYNC IMAGE FETCHING ----
-# async def fetch_image(session, url):
-#     try:
-#         async with session.get(url) as response:
-#             return await response.read()
-#     except:
-#         return None
-
-# async def fetch_images_async(urls):
-#     async with aiohttp.ClientSession() as session:
-#         tasks = [fetch_image(session, url) for url in urls]
-#         return await asyncio.gather(*tasks)
-
-# # ---- CONFIG ----
-# REPO_ID = "flodussart/tires_project"
-# BASE_URL = f"https://huggingface.co/datasets/{REPO_ID}/resolve/main/"
-
-# @st.cache_data
-# def get_image_df():
-#     files = list_repo_files(REPO_ID, repo_type="dataset")
-#     image_paths = [f for f in files if f.endswith(('.jpg', '.jpeg', '.png')) and ("good/" in f or "defective/" in f)]
-#     data = []
-#     for path in image_paths:
-#         label = "good" if "good/" in path else "defective"
-#         url = BASE_URL + path
-#         data.append({"url": url, "label": label})
-#     return pd.DataFrame(data)
-
-# # ---- RGB + LAB FEATURE EXTRACTION ----
-# def compute_color_features(df, sample_per_class=100):
-#     data = []
-#     for label in ["good", "defective"]:
-#         subset = df[df['label'] == label].sample(min(sample_per_class, len(df[df['label'] == label])), random_state=42)
-#         urls = subset['url'].tolist()
-#         loop = asyncio.new_event_loop()
-#         asyncio.set_event_loop(loop)
-#         images_bytes = loop.run_until_complete(fetch_images_async(urls))
-#         for img_bytes, url in zip(images_bytes, urls):
-#             try:
-#                 img = Image.open(BytesIO(img_bytes)).convert('RGB').resize((64, 64))
-#                 arr = np.array(img)
-#                 lab = rgb2lab(arr / 255.0)
-#                 data.append({
-#                     "url": url,
-#                     "label": label,
-#                     "R": arr[..., 0].mean(),
-#                     "G": arr[..., 1].mean(),
-#                     "B": arr[..., 2].mean(),
-#                     "L": lab[..., 0].mean(),
-#                     "a": lab[..., 1].mean(),
-#                     "b": lab[..., 2].mean(),
-#                 })
-#             except:
-#                 continue
-#     return pd.DataFrame(data)
-
-
-# # ---- DATASET CLASSIFICATION ----
-# st.markdown("---")
-# with st.expander("🗂️ Dataset 1 – Classification (Inception_v3/Kaggle)", expanded=False):
-
-#     st.markdown("### Aperçu du dataset de classification")
-
-#     df = get_image_df()  
-#     sample_size = st.slider("Nombre d'images analysées (par classe)", 10, 200, 50)
-
-#     rgb_df = compute_color_features(df, sample_per_class=sample_size)
-
-#     # Quick image preview
-#     sampled = df.sample(min(9, len(df)))
-#     fig, ax = plt.subplots(3, 3, figsize=(6, 6))
-#     for i, row in enumerate(sampled.itertuples()):
-#         response = requests.get(row.url)
-#         img = mpimg.imread(BytesIO(response.content), format='jpg')
-#         ax[i // 3, i % 3].imshow(img)
-#         ax[i // 3, i % 3].set_title(row.label, fontsize=8)
-#         ax[i // 3, i % 3].axis("off")
-#     st.pyplot(fig)
-
-#     # Statistiques 
-#     st.markdown("### Statistiques rapides")
-#     colA, colB = st.columns(2)
-#     with colA:
-#         label_counts = df['label'].value_counts().reset_index()
-#         label_counts.columns = ['label', 'count']
-#         fig_bar = px.bar(label_counts, x='label', y='count', color='label', text='count',
-#                          color_discrete_sequence=['gray', 'dimgray'])
-#         fig_bar.update_layout(yaxis_title="Nombre d'images", xaxis_title="Label", showlegend=False, height=300)
-#         st.plotly_chart(fig_bar, use_container_width=True)
-
-#     with colB:
-#         st.metric("Total d'images", len(df))
-#         st.metric("Nombre de classes", df['label'].nunique())
-
-#     # Filter by class
-#     st.markdown("### Affichage filtré par classe")
-#     selected_label = st.selectbox("Choisir une classe :", df['label'].unique())
-#     subset = df[df['label'] == selected_label].sample(n=min(3, len(df[df['label'] == selected_label])), random_state=1)
-#     img_cols = st.columns(3)
-#     for i, row in enumerate(subset.itertuples()):
-#         with img_cols[i % 3]:
-#             st.image(row.url, use_container_width=True)
-
-# # --- CONFIG 2e dataset ---
-# # ---- DATASET DÉTECTION (YOLOv8) ----
-# st.markdown("---")
-# with st.expander("📦 Dataset 2 – Détection (YOLOv8 / Roboflow)", expanded=True):
-
-#     from PIL import ImageDraw
-
-#     DETECT_REPO_ID = "flodussart/tires_project_roboflow"
-#     st.markdown("### Visualisation des annotations")
-
-#     @st.cache_data
-#     def get_yolo_image_paths():
-#         files = list_repo_files(DETECT_REPO_ID, repo_type="dataset")
-#         return [f for f in files if f.startswith("train/images/") and f.endswith(('.jpg', '.jpeg', '.png'))]
-
-#     image_paths = get_yolo_image_paths()
-#     sample_paths = random.sample(image_paths, min(6, len(image_paths)))
-
-#     img_cols = st.columns(3)  
-
-#     for i, path in enumerate(sample_paths):
-#         image_url = f"https://huggingface.co/datasets/{DETECT_REPO_ID}/resolve/main/{path}"
-#         label_path = path.replace("images/", "labels/").rsplit(".", 1)[0] + ".txt"
-#         label_url = f"https://huggingface.co/datasets/{DETECT_REPO_ID}/resolve/main/{label_path}"
-
-#         try:
-#             # load img
-#             img_response = requests.get(image_url)
-#             img = Image.open(BytesIO(img_response.content)).convert("RGB")
-#             w, h = img.size
-
-#             # Image annotation
-#             draw_img = img.copy()
-#             draw = ImageDraw.Draw(draw_img)
-
-#             label_response = requests.get(label_url)
-#             label_lines = label_response.text.strip().split("\n")
-
-#             for line in label_lines:
-#                 parts = line.strip().split()
-#                 if len(parts) == 5:
-#                     cls, x, y, bw, bh = map(float, parts)
-#                     xmin = (x - bw / 2) * w
-#                     ymin = (y - bh / 2) * h
-#                     xmax = (x + bw / 2) * w
-#                     ymax = (y + bh / 2) * h
-#                     draw.rectangle([xmin, ymin, xmax, ymax], outline="red", width=2)
-#                     draw.text((xmin, ymin), f"Class {int(cls)}", fill="red")
-
-#             with img_cols[i % 3]:
-#                 st.image(draw_img, caption=path.split("/")[-1], width=250)
-
-#         except Exception as e:
-#             st.error(f"Erreur image {path} : {e}")
+import numpy as np
+import pandas as pd
+import requests
 import streamlit as st
 import streamlit.components.v1 as components
 from huggingface_hub import list_repo_files
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
-import random
-import requests
-from io import BytesIO
 from PIL import Image, ImageDraw
-import pandas as pd
-import numpy as np
-import plotly.express as px
 from skimage.color import rgb2lab
 
-# ---------------------- HEADER HTML (Bootstrap + description) ----------------------
 
+# ==============================================================
+#                           HEADER
+# ==============================================================
+
+st.markdown(
+    "<h1 style='text-align: center; color: gray;'>Datasets</h1>",
+    unsafe_allow_html=True,
+)
+st.markdown("---")
+
+# HTML block for the top description + Bootstrap accordions
 components.html(
     """
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js">
+    </script>
 
     <style>
-      .card {
-        border-radius: 12px;
-        margin-bottom: 15px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       }
-      .btn-link {
+      .dataset-card {
+        border-radius: 14px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+        border: none;
+      }
+      .dataset-card .card-header {
+        background: #f8f9fa;
+        border-bottom: 1px solid #eee;
+      }
+      .dataset-card .btn-link {
         font-size: 1.05rem;
-        color: #444;
+        color: #333;
         text-decoration: none;
+        font-weight: 600;
       }
-      .btn-link:hover {
-        color: #111;
+      .dataset-card .btn-link:hover {
+        color: #000;
       }
       pre {
         background-color: #f8f9fa;
-        padding: 15px;
+        padding: 10px 14px;
         border-radius: 8px;
-        font-size: 0.85rem;
+        font-size: 0.8rem;
+        margin-bottom: 0;
       }
-      ul { padding-left: 1.2rem; }
+      ul { padding-left: 1.1rem; }
+      .page-title {
+        text-align: center;
+        margin-bottom: 25px;
+      }
+      .page-title p {
+        margin: 0;
+        color: #666;
+        font-size: 0.95rem;
+      }
     </style>
 
-    <div class="container mt-4">
+    <div class="container mt-3 mb-3">
+      <div class="page-title">
+        <p>
+          Deux jeux de données sont utilisés : l’un pour la <strong>classification</strong> de l’état des pneus,
+          l’autre pour la <strong>détection</strong> au format YOLOv8.
+          </br></br>
+        </p>
+      </div>
+
       <div class="row">
         <!-- Classification Dataset -->
         <div class="col-md-6">
           <div id="accordion1">
-            <div class="card">
+            <div class="card dataset-card">
               <div class="card-header" id="head1">
                 <h5 class="mb-0">
-                  <button class="btn btn-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="true">
-                    🗂️ Dataset 1 : Classification (Inception_v3 / Kaggle)
+                  <button class="btn btn-link" data-toggle="collapse"
+                          data-target="#collapse1" aria-expanded="true">
+                    🗂️ Dataset 1&nbsp;: Classification (Inception_v3 / Kaggle)
                   </button>
                 </h5>
               </div>
               <div id="collapse1" class="collapse show" data-parent="#accordion1">
                 <div class="card-body">
                   <ul>
-                    <li><strong>Source Kaggle :</strong> <a href="https://www.kaggle.com/datasets/warcoder/tyre-quality-classification/data" target="_blank">Accéder</a></li>
-                    <li><strong>Version HuggingFace :</strong> <a href="https://huggingface.co/datasets/flodussart/tires_project_roboflow" target="_blank">Accéder</a></li>
-                    <li><strong>Auteur :</strong> Chirag CHAUHAN</li>
-                    <li><strong>Licence :</strong> <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a></li>
+                    <li><strong>Source Kaggle&nbsp;:</strong>
+                      <a href="https://www.kaggle.com/datasets/warcoder/tyre-quality-classification/data"
+                         target="_blank">Voir sur Kaggle</a>
+                    </li>
+                    <li><strong>Version Hugging Face&nbsp;:</strong>
+                      <a href="https://huggingface.co/datasets/flodussart/tires_project_roboflow"
+                         target="_blank">Voir le dataset</a>
+                    </li>
+                    <li><strong>Auteur&nbsp;:</strong> Chirag CHAUHAN</li>
+                    <li><strong>Licence&nbsp;:</strong>
+                      <a href="https://creativecommons.org/licenses/by/4.0/"
+                         target="_blank">CC BY 4.0</a>
+                    </li>
                   </ul>
-                  <p>Ce dataset contient des images réparties en deux classes : <strong>good</strong> et <strong>defective</strong>.
-                  Il est utilisé pour entraîner un modèle de classification d’usure de pneu.</p>
+                  <p>
+                    Ce dataset contient des images de pneus réparties en deux classes&nbsp;:
+                    <strong>good</strong> (bon état) et <strong>defective</strong> (défectueux).
+                    Il est utilisé pour entraîner le modèle de <strong>classification de l’usure</strong>.
+                  </p>
 
                   <pre>
-Images numériques de pneus/
+images/
 ├── defective/
 │   ├── img1.jpg
 │   ├── img2.jpg
@@ -399,26 +137,36 @@ Images numériques de pneus/
         <!-- Detection Dataset -->
         <div class="col-md-6">
           <div id="accordion2">
-            <div class="card">
+            <div class="card dataset-card">
               <div class="card-header" id="head2">
                 <h5 class="mb-0">
-                  <button class="btn btn-link" data-toggle="collapse" data-target="#collapse2" aria-expanded="true">
-                    📦 Dataset 2 : Détection (YOLOv8 / Roboflow)
+                  <button class="btn btn-link" data-toggle="collapse"
+                          data-target="#collapse2" aria-expanded="true">
+                    📦 Dataset 2&nbsp;: Détection (YOLOv8 / Roboflow)
                   </button>
                 </h5>
               </div>
               <div id="collapse2" class="collapse show" data-parent="#accordion2">
                 <div class="card-body">
                   <ul>
-                    <li><strong>Source Roboflow :</strong> <a href="https://universe.roboflow.com/iotml/tire-dataset/dataset/2" target="_blank">Accéder</a></li>
-                    <li><strong>Version HuggingFace :</strong> <a href="https://huggingface.co/datasets/flodussart/tires_project" target="_blank">Accéder</a></li>
-                    <li><strong>Titre :</strong> Tire Dataset – Computer Vision Project</li>
+                    <li><strong>Source Roboflow&nbsp;:</strong>
+                      <a href="https://universe.roboflow.com/iotml/tire-dataset/dataset/2"
+                         target="_blank">Voir sur Roboflow</a>
+                    </li>
+                    <li><strong>Version Hugging Face&nbsp;:</strong>
+                      <a href="https://huggingface.co/datasets/flodussart/tires_project"
+                         target="_blank">Voir le dataset</a>
+                    </li>
+                    <li><strong>Titre&nbsp;:</strong> Tire Dataset – Computer Vision Project</li>
                   </ul>
-                  <p>Ce dataset est formaté pour YOLOv8 avec annotations pour la <strong>détection d’objets</strong>.
-                  Il contient des images de train / validation / test avec fichiers d’annotations au format YOLO.</p>
+                  <p>
+                    Ce dataset est formaté pour <strong>YOLOv8</strong> avec annotations de détection d’objets.
+                    Il contient des images réparties en ensemble d’<em>entraînement</em>, de <em>validation</em>
+                    et de <em>test</em>.
+                  </p>
 
                   <pre>
-Dataset de détection YOLOv8/
+dataset/
 ├── train/
 │   ├── images/
 │   └── labels/
@@ -428,9 +176,7 @@ Dataset de détection YOLOv8/
 ├── test/
 │   ├── images/
 │   └── labels/
-├── data.yaml
-├── README.dataset.txt
-└── README.roboflow.txt
+└── data.yaml
                   </pre>
                 </div>
               </div>
@@ -440,10 +186,13 @@ Dataset de détection YOLOv8/
       </div>
     </div>
     """,
-    height=900,
+    height=650,
+    scrolling=True,
 )
 
-# ---------------------- GLOBAL STYLES ----------------------
+# ==============================================================
+#                       GLOBAL STYLES
+# ==============================================================
 
 st.markdown(
     """
@@ -460,49 +209,74 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# ---------------------- DATASET CONFIG ----------------------
+# ==============================================================
+#                       DATASET CONFIG
+# ==============================================================
 
 CLASSIF_REPO_ID = "flodussart/tires_project"
-CLASSIF_BASE_URL = f"https://huggingface.co/datasets/{CLASSIF_REPO_ID}/resolve/main/"
+CLASSIF_BASE_URL = (
+    f"https://huggingface.co/datasets/{CLASSIF_REPO_ID}/resolve/main/"
+)
 
 DETECT_REPO_ID = "flodussart/tires_project_roboflow"
-DETECT_BASE_URL = f"https://huggingface.co/datasets/{DETECT_REPO_ID}/resolve/main/"
+DETECT_BASE_URL = (
+    f"https://huggingface.co/datasets/{DETECT_REPO_ID}/resolve/main/"
+)
 
-# ---------------------- HELPERS: FILE LOADING ----------------------
+
+# ==============================================================
+#                     HELPERS: FILE LOADING
+# ==============================================================
 
 @st.cache_data
-def get_classification_image_df():
-    """List classification images (good / defective) from the HF dataset."""
+def get_classification_image_df() -> pd.DataFrame:
+    """
+    List classification images (good / defective) from the HF dataset.
+    """
     files = list_repo_files(CLASSIF_REPO_ID, repo_type="dataset")
+
     image_paths = [
-        f
-        for f in files
-        if f.endswith((".jpg", ".jpeg", ".png"))
-        and ("good/" in f or "defective/" in f)
+        file
+        for file in files
+        if file.endswith((".jpg", ".jpeg", ".png"))
+        and ("good/" in file or "defective/" in file)
     ]
+
     data = []
     for path in image_paths:
         label = "good" if "good/" in path else "defective"
         url = CLASSIF_BASE_URL + path
         data.append({"url": url, "label": label})
+
     return pd.DataFrame(data)
 
-def compute_color_features(df: pd.DataFrame, sample_per_class: int = 100) -> pd.DataFrame:
-    """Compute simple color features (RGB + Lab) from a sample of images per class."""
+
+def compute_color_features(
+    df: pd.DataFrame,
+    sample_per_class: int = 100,
+) -> pd.DataFrame:
+    """
+    Compute simple color features (RGB + Lab) from a sample of images per class.
+    """
     data = []
+
     for label in ["good", "defective"]:
         class_df = df[df["label"] == label]
         if len(class_df) == 0:
             continue
 
-        n = min(sample_per_class, len(class_df))
-        subset = class_df.sample(n=n, random_state=42)
+        n_samples = min(sample_per_class, len(class_df))
+        subset = class_df.sample(n=n_samples, random_state=42)
 
         for _, row in subset.iterrows():
             try:
-                resp = requests.get(row["url"])
-                img = Image.open(BytesIO(resp.content)).convert("RGB").resize((64, 64))
-                arr = np.array(img)
+                response = requests.get(row["url"])
+                image = (
+                    Image.open(BytesIO(response.content))
+                    .convert("RGB")
+                    .resize((64, 64))
+                )
+                arr = np.array(image)
                 lab = rgb2lab(arr / 255.0)
 
                 data.append(
@@ -518,121 +292,91 @@ def compute_color_features(df: pd.DataFrame, sample_per_class: int = 100) -> pd.
                     }
                 )
             except Exception:
+                # Skip problematic images but keep the rest
                 continue
 
     return pd.DataFrame(data)
 
+
 @st.cache_data
-def get_detection_image_paths():
-    """List YOLO detection images (train/images) from the HF dataset."""
+def get_detection_image_paths() -> list[str]:
+    """
+    List YOLO detection images (train/images) from the HF dataset.
+    """
     files = list_repo_files(DETECT_REPO_ID, repo_type="dataset")
+
     return [
-        f
-        for f in files
-        if f.startswith("train/images/")
-        and f.endswith((".jpg", ".jpeg", ".png"))
+        file
+        for file in files
+        if file.startswith("train/images/")
+        and file.endswith((".jpg", ".jpeg", ".png"))
     ]
 
-# ---------------------- DATASET 1 : CLASSIFICATION ----------------------
+
+# ==============================================================
+#                     LOAD DATA FOR PREVIEW
+# ==============================================================
+
+df_classif = get_classification_image_df()
+detect_image_paths = get_detection_image_paths()
+
+# ==============================================================
+#                SIDE-BY-SIDE VISUAL PREVIEW
+# ==============================================================
 
 st.markdown("---")
-with st.expander("🗂️ Dataset 1 – Classification (Inception_v3 / Kaggle)", expanded=False):
+st.subheader("Aperçu visuel des deux jeux de données")
 
-    st.markdown("### Aperçu du dataset de classification")
+df = df_classif
+image_paths = detect_image_paths
 
-    df = get_classification_image_df()
+col_left, col_right = st.columns(2)
 
-    # Slider for number of images used in color feature analysis
-    sample_size = st.slider(
-        "Nombre d'images analysées (par classe)",
-        10,
-        200,
-        50,
-        step=10,
-    )
+# ---------------------- LEFT: CLASSIFICATION ----------------------
 
-    rgb_df = compute_color_features(df, sample_per_class=sample_size)
+with col_left:
+    st.markdown("**Dataset 1 – Classification**")
 
-    # Preview of a small sample of images
-    st.markdown("#### Aperçu d'un échantillon d'images")
-    sampled = df.sample(min(9, len(df)), random_state=1)
-    fig, ax = plt.subplots(3, 3, figsize=(6, 6))
-    for i, row in enumerate(sampled.itertuples()):
-        resp = requests.get(row.url)
-        img = mpimg.imread(BytesIO(resp.content), format="jpg")
-        ax[i // 3, i % 3].imshow(img)
-        ax[i // 3, i % 3].set_title(row.label, fontsize=8)
-        ax[i // 3, i % 3].axis("off")
-    st.pyplot(fig)
-
-    # Quick global statistics
-    st.markdown("### Statistiques rapides")
-    colA, colB = st.columns(2)
-
-    with colA:
-        label_counts = df["label"].value_counts().reset_index()
-        label_counts.columns = ["label", "count"]
-        fig_bar = px.bar(
-            label_counts,
-            x="label",
-            y="count",
-            color="label",
-            text="count",
-            color_discrete_sequence=["gray", "dimgray"],
-        )
-        fig_bar.update_layout(
-            yaxis_title="Nombre d'images",
-            xaxis_title="Label",
-            showlegend=False,
-            height=300,
-        )
-        st.plotly_chart(fig_bar, use_container_width=True)
-
-    with colB:
-        st.metric("Total d'images", len(df))
-        st.metric("Nombre de classes", df["label"].nunique())
-
-    # Filtered display by class
-    st.markdown("### Affichage filtré par classe")
-    selected_label = st.selectbox("Choisir une classe :", df["label"].unique())
-    subset = df[df["label"] == selected_label].sample(
-        n=min(3, len(df[df["label"] == selected_label])),
-        random_state=1,
-    )
-    img_cols = st.columns(3)
-    for i, row in enumerate(subset.itertuples()):
-        with img_cols[i % 3]:
-            st.image(row.url, use_container_width=True)
-
-# ---------------------- DATASET 2 : DÉTECTION (YOLOv8) ----------------------
-
-st.markdown("---")
-with st.expander("📦 Dataset 2 – Détection (YOLOv8 / Roboflow)", expanded=True):
-
-    st.markdown("### Visualisation de quelques annotations YOLOv8")
-
-    image_paths = get_detection_image_paths()
-    if len(image_paths) == 0:
-        st.warning("Aucune image trouvée dans le dataset de détection.")
-    else:
-        sample_paths = random.sample(image_paths, min(6, len(image_paths)))
+    if len(df) > 0:
+        # Up to 6 images → 2 rows × 3 columns
+        sample_classif = df.sample(min(6, len(df)), random_state=42)
         img_cols = st.columns(3)
 
-        for i, path in enumerate(sample_paths):
+        for i, row in enumerate(sample_classif.itertuples()):
+            with img_cols[i % 3]:
+                st.image(
+                    row.url,
+                    caption=row.label,
+                    width=140,  # small thumbnail
+                )
+    else:
+        st.info("Aucune image trouvée pour le dataset de classification.")
+
+
+# ------------------------ RIGHT: DETECTION ------------------------
+
+with col_right:
+    st.markdown("**Dataset 2 – Détection (YOLOv8)**")
+
+    if len(image_paths) > 0:
+        sample_detect = random.sample(image_paths, min(6, len(image_paths)))
+        img_cols = st.columns(3)
+
+        for i, path in enumerate(sample_detect):
             image_url = f"{DETECT_BASE_URL}{path}"
-            label_path = path.replace("images/", "labels/").rsplit(".", 1)[0] + ".txt"
+            label_path = (
+                path.replace("images/", "labels/").rsplit(".", 1)[0] + ".txt"
+            )
             label_url = f"{DETECT_BASE_URL}{label_path}"
 
             try:
-                # Load image
                 img_response = requests.get(image_url)
                 img = Image.open(BytesIO(img_response.content)).convert("RGB")
-                w, h = img.size
+                width, height = img.size
 
                 draw_img = img.copy()
                 draw = ImageDraw.Draw(draw_img)
 
-                # Load YOLO labels
                 label_response = requests.get(label_url)
                 lines = label_response.text.strip().split("\n")
 
@@ -640,19 +384,23 @@ with st.expander("📦 Dataset 2 – Détection (YOLOv8 / Roboflow)", expanded=T
                     parts = line.strip().split()
                     if len(parts) == 5:
                         cls, x, y, bw, bh = map(float, parts)
-                        xmin = (x - bw / 2) * w
-                        ymin = (y - bh / 2) * h
-                        xmax = (x + bw / 2) * w
-                        ymax = (y + bh / 2) * h
-                        draw.rectangle([xmin, ymin, xmax, ymax], outline="red", width=2)
-                        draw.text((xmin, ymin), f"class {int(cls)}", fill="red")
+                        xmin = (x - bw / 2) * width
+                        ymin = (y - bh / 2) * height
+                        xmax = (x + bw / 2) * width
+                        ymax = (y + bh / 2) * height
+                        draw.rectangle(
+                            [xmin, ymin, xmax, ymax],
+                            outline="red",
+                            width=2,
+                        )
 
                 with img_cols[i % 3]:
                     st.image(
                         draw_img,
                         caption=path.split("/")[-1],
-                        use_container_width=True,
+                        width=140,  # small thumbnail
                     )
-
-            except Exception as e:
-                st.error(f"Erreur sur l'image {path} : {e}")
+            except Exception as exc:
+                st.error(f"Erreur sur l'image {path} : {exc}")
+    else:
+        st.info("Aucune image trouvée pour le dataset de détection.")
