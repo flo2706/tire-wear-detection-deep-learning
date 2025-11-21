@@ -13,7 +13,7 @@ L’usure des pneus reste un facteur majeur d’accidents, principalement en rai
 L’objectif de ce projet est de concevoir une solution complète de Computer Vision capable de :
 1. **Détecter automatiquement les pneus** dans une image (YOLOv8)
 2. **Évaluer leur état (Bon / Usé)** (MobileNetV2 finetuné)
-3. Offrir une application web simple d’usage, utilisable par tout public
+3. Offrir une **application web simple d’usage**, utilisable par tout public
 
 ---
 
