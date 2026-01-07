@@ -49,7 +49,7 @@ Utilisé pour isoler automatiquement chaque pneu avant classification.
 - 1 classe : pneu
 
 Les datasets sont également publiés sur **Hugging Face** à des fins de **visualisation et d’exploration** dans l’application Streamlit :  
-- Classification : [tires_project](https://huggingface.co/datasets/flodussart/tires_project)
+- Classification : [tires_project_classification](https://huggingface.co/datasets/flodussart/tires_project)
 - Détection : [tires_project_roboflow](https://huggingface.co/datasets/flodussart/tires_project_roboflow)
 
 Les données sont publiques, anonymes et conformes aux principes du RGPD.
