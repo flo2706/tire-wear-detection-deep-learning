@@ -19,7 +19,6 @@ L’objectif de ce projet est de concevoir une solution complète de Computer Vi
 ## Pipeline Data & Deep Learning
 
 ### **1. Détection – YOLOv8m**
-- 1 classe : pneu  
 - Scores :
   - mAP@50 ≈ **97%**
   - Precision ≈ 93%
@@ -46,7 +45,8 @@ Utilisé pour isoler automatiquement chaque pneu avant classification.
 - 2 classes : `good` / `defective`
 
 ### **Dataset Détection**
-- Roboflow (original) : [Tire Dataset – Roboflow](https://universe.roboflow.com/iotml/tire-dataset/dataset/2)  
+- Roboflow (original) : [Tire Dataset – Roboflow](https://universe.roboflow.com/iotml/tire-dataset/dataset/2)
+- 1 classe : pneu
 
 Les datasets sont également publiés sur **Hugging Face** à des fins de **visualisation et d’exploration** dans l’application Streamlit :  
 - Classification : [tires_project](https://huggingface.co/datasets/flodussart/tires_project)
