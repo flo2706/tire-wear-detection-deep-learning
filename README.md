@@ -1,6 +1,5 @@
-<h1 align="center">JET – Jedha Evaluation Tyres</h1>
-<h3 align="center">Projet Final – Deep Learning & Computer Vision</h3>
-
+<h1 align="center">Tire Wear Detection - Deep Learning & Computer Vision</h1>
+<h3 align="center">JET - Jedha's Evaluation Tyre</h3>
 <p align="center"><em>Détection automatique de pneus + classification de l’usure</em></p>
 <br>
 
