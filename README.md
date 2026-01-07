@@ -42,14 +42,15 @@ Utilisé pour isoler automatiquement chaque pneu avant classification.
 ## Données
 
 ### **Dataset Classification**
-- Kaggle : [Tire Quality Classification](LIEN_KAGGLE)
+- Kaggle : [Tyre Quality Classification](https://www.kaggle.com/datasets/warcoder/tyre-quality-classification/data)  
 - 2 classes : `good` / `defective`
 
 ### **Dataset Détection**
-- Roboflow :
-- images annotées (format YOLOv8)
+- Roboflow (original) : [Tire Dataset – Roboflow](https://universe.roboflow.com/iotml/tire-dataset/dataset/2)  
 
-Les datasets sont également publiés sur **Hugging Face** à des fins de **visualisation et d’exploration** dans l’application Streamlit.
+Les datasets sont également publiés sur **Hugging Face** à des fins de **visualisation et d’exploration** dans l’application Streamlit :  
+- Classification : [tires_project](https://huggingface.co/datasets/flodussart/tires_project)
+- Détection : [tires_project_roboflow](https://huggingface.co/datasets/flodussart/tires_project_roboflow)
 
 Les données sont publiques, anonymes et conformes aux principes du RGPD.
 
