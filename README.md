@@ -1,5 +1,5 @@
 <h1 align="center">Tire Wear Detection - Deep Learning & Computer Vision</h1>
-<h3 align="center">JET - Jedha's Evaluation Tyre</h3>
+<h3 align="center">JET - Jedha Evaluation Tyre</h3>
 <p align="center"><em>Détection automatique de pneus + classification de l’usure</em></p>
 <br>
 
@@ -11,7 +11,7 @@ L’usure des pneus reste un facteur majeur d’accidents, principalement en rai
 
 L’objectif de ce projet est de concevoir une solution complète de Computer Vision capable de :
 1. **Détecter automatiquement les pneus** dans une image (YOLOv8)
-2. **Évaluer leur état (Bon / Usé)** (MobileNetV2 finetuné)
+2. **Évaluer leur état (apte / inapte à la conduite)** (MobileNetV2 finetuné)
 3. Offrir une **application web simple d’usage**, utilisable par tout public
 
 ---
@@ -23,8 +23,8 @@ L’objectif de ce projet est de concevoir une solution complète de Computer Vi
 - 1 classe : pneu  
 - Scores :
   - mAP@50 ≈ **97%**
-  - Precision ≈ 94%
-  - Recall ≈ 92%
+  - Precision ≈ 93%
+  - Recall ≈ 94%
 
 Utilisé pour isoler automatiquement chaque pneu avant classification.
 
@@ -49,7 +49,7 @@ Utilisé pour isoler automatiquement chaque pneu avant classification.
 ### **Dataset Détection**
 - Roboflow : images annotées (format YOLOv8)
 
-Les données sont publiques, anonymes et conformes RGPD.
+Les données sont publiques, anonymes et conformes aux principes du RGPD.
 
 ---
 
@@ -106,6 +106,7 @@ Conçue pour un public non expert, avec une interface pédagogique.
 
 ## Améliorations possibles
 
+- Segmentation précise du **pneu uniquement** (exclusion de la jante), non implémentée dans ce projet faute de **données annotées adaptées**, mais identifiée comme un levier clé d’amélioration
 - Heatmaps avancées (Grad-CAM)
 - Détection d'autres défauts (hernie, craquelures…)
 - Version mobile (Android/iOS)
@@ -114,12 +115,19 @@ Conçue pour un public non expert, avec une interface pédagogique.
 
 ---
 
-## Projet Certification Jedha
+## Cadre du projet
 
-Ce projet illustre :
+Ce projet démontre :
 
-- la transformation d’un problème métier en solution ML complète
-- un pipeline end-to-end : data → modèle → application → déploiement
-- la capacité à **vulgariser** des choix techniques.
+- la capacité à transformer un **problème métier** en **solution de deep learning complète**
+- la conception d’un **pipeline end-to-end** : data → modèle → application → déploiement
+- la capacité à **expliquer et vulgariser** des choix techniques auprès d’un public non expert
+- la capacité à **collaborer efficacement en binôme** sur un projet data, de la conception au déploiement
 
 ---
+
+## Contexte
+
+Projet final réalisé dans le cadre de la certification  
+**« Concepteur Développeur en Sciences des Données » (RNCP 35288 – Jedha)**,
+en collaboration avec **Youenn Patat**.
