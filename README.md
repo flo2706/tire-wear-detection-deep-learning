@@ -19,7 +19,6 @@ L’objectif de ce projet est de concevoir une solution complète de Computer Vi
 ## Pipeline Data & Deep Learning
 
 ### **1. Détection – YOLOv8m**
-- Dataset Roboflow (annotations YOLO)
 - 1 classe : pneu  
 - Scores :
   - mAP@50 ≈ **97%**
@@ -43,11 +42,13 @@ Utilisé pour isoler automatiquement chaque pneu avant classification.
 ## Données
 
 ### **Dataset Classification**
-- Kaggle : Tire Quality Classification  
+- Source originale : Kaggle : Tire Quality Classification
+- Dataset utilisé : 
 - 2 classes : `good` / `defective`
 
 ### **Dataset Détection**
-- Roboflow : images annotées (format YOLOv8)
+- Source originale : Roboflow : images annotées (format YOLOv8)
+- Dataset utilisé : 
 
 Les données sont publiques, anonymes et conformes aux principes du RGPD.
 
