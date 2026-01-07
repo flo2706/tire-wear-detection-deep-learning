@@ -10,9 +10,9 @@
 L’usure des pneus reste un facteur majeur d’accidents, principalement en raison d’un contrôle manuel, irrégulier et subjectif.
 
 L’objectif de ce projet est de concevoir une solution complète de Computer Vision capable de :
-1. **Détecter automatiquement les pneus** dans une image (YOLOv8)
-2. **Évaluer leur état (apte / inapte à la conduite)** (MobileNetV2 finetuné)
-3. Offrir une **application web simple d’usage**, utilisable par tout public
+1. Détecter automatiquement les pneus dans une image (YOLOv8)
+2. Évaluer leur état (*apte / inapte à la conduite*) (MobileNetV2 finetuné)
+3. Offrir une application web simple d’usage, utilisable par tout public
 
 ---
 
@@ -48,7 +48,7 @@ Utilisé pour isoler automatiquement chaque pneu avant classification.
 - Roboflow (original) : [Tire Dataset – Roboflow](https://universe.roboflow.com/iotml/tire-dataset/dataset/2)
 - 1 classe : pneu
 
-Les datasets sont également publiés sur **Hugging Face** à des fins de **visualisation et d’exploration** dans l’application Streamlit :  
+Les datasets sont également publiés sur **Hugging Face** à des fins de visualisation et d’exploration dans l’application Streamlit :  
 - Classification : [tires_project_classification](https://huggingface.co/datasets/flodussart/tires_project)
 - Détection : [tires_project_roboflow](https://huggingface.co/datasets/flodussart/tires_project_roboflow)
 
@@ -61,7 +61,7 @@ Les données sont publiques, anonymes et conformes aux principes du RGPD.
 1. Import de l’image (voiture ou pneu isolé)
 2. Détection des pneus avec **YOLOv8**
 3. Recadrage + preprocessing OpenCV
-4. Classification globale Bon / Usé avec MobileNetV2
+4. Classification globale Bon / Usé avec **MobileNetV2**
 5. Analyse locale 4×4 :
   - zones 🟩 = bonnes
   - zones 🟥 = usées
@@ -109,7 +109,7 @@ Conçue pour un public non expert, avec une interface pédagogique.
 
 ## Améliorations possibles
 
-- Segmentation précise du **pneu uniquement** (exclusion de la jante), non implémentée dans ce projet faute de **données annotées adaptées**, mais identifiée comme un levier clé d’amélioration
+- Segmentation précise du **pneu uniquement** (exclusion de la jante), non implémentée dans ce projet faute de données annotées adaptées, mais identifiée comme un levier clé d’amélioration
 - Heatmaps avancées (Grad-CAM)
 - Détection d'autres défauts (hernie, craquelures…)
 - Version mobile (Android/iOS)
