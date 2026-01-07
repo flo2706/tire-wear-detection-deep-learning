@@ -42,13 +42,14 @@ Utilisé pour isoler automatiquement chaque pneu avant classification.
 ## Données
 
 ### **Dataset Classification**
-- Source originale : Kaggle : Tire Quality Classification
-- Dataset utilisé : 
+- Kaggle : [Tire Quality Classification](LIEN_KAGGLE)
 - 2 classes : `good` / `defective`
 
 ### **Dataset Détection**
-- Source originale : Roboflow : images annotées (format YOLOv8)
-- Dataset utilisé : 
+- Roboflow :
+- images annotées (format YOLOv8)
+
+Les datasets sont également publiés sur **Hugging Face** à des fins de **visualisation et d’exploration** dans l’application Streamlit.
 
 Les données sont publiques, anonymes et conformes aux principes du RGPD.
 
