@@ -1,13 +1,10 @@
 import json
-
 import matplotlib.pyplot as plt
 import streamlit as st
 import tensorflow as tf
 
 
-# -----------------------------------------------------
-#  GLOBAL STYLE : titles + cards
-# -----------------------------------------------------
+#  Global styles : titles + cards
 st.markdown(
     """
     <style>
@@ -46,8 +43,8 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# ---------------------- LOAD TRAINING HISTORIES ----------------------
 
+# Load training history from Hugging Face
 
 def load_history(url: str, local_name: str) -> dict:
     """Download and load a JSON history file from Hugging Face."""
@@ -90,22 +87,23 @@ except Exception as e:
     )
     st.stop()
 
-# ---------------------- MAIN TITLE ----------------------
+
+# Main title
 st.markdown(
     "<h1 style='color: gray; margin-bottom: 0;'>Modèles</h1>",
     unsafe_allow_html=True,
 )
 st.markdown("---")
 
-# ====================== SECTION 1 : CLASSIFICATION ======================
+# Section 1 : Classification models
 st.markdown("## Modèles de classification")
 st.markdown("")
 
 colA, colB = st.columns(2)
 
-# ====== Left column : InceptionV3 (baseline) ======
+# Left column : InceptionV3 (baseline) 
 with colA:
-    # ----------- Card description -----------
+    # Card description
     st.markdown(
         """
         <div class="model-card">
@@ -145,7 +143,7 @@ with colA:
         unsafe_allow_html=True,
     )
     st.markdown("")
-    # ----------- Learning curves -----------
+    # Learning curves
     st.markdown("**Courbes d'apprentissage**")
 
     courbeA1, courbeA2 = st.columns(2)
@@ -175,7 +173,7 @@ with colA:
         st.pyplot(fig, use_container_width=True)
 
     st.markdown("")
-    # ----------- Confusion matrix -----------
+    # Confusion matrix 
     st.markdown("**Matrice de confusion**")
     cm1_col1, cm1_col2, cm1_col3 = st.columns([1, 2, 1])
     with cm1_col2:
@@ -184,9 +182,9 @@ with colA:
             width=420,
         )
 
-# ====== Right column : MobileNetV2 (final) ======
+# Right column : MobileNetV2 (final) 
 with colB:
-    # ----------- Card description -----------
+    # Card description 
     st.markdown(
         """
         <div class="model-card">
@@ -233,7 +231,7 @@ with colB:
         unsafe_allow_html=True,
     )
     st.markdown("")
-    # ----------- Learning curves -----------
+    # Learning curves 
     st.markdown("**Courbes d'apprentissage**")
 
     courbeB1, courbeB2 = st.columns(2)
@@ -263,7 +261,7 @@ with colB:
         st.pyplot(fig, use_container_width=True)
         
     st.markdown("")
-    # ----------- Confusion matrix -----------
+    # Confusion matrix 
     st.markdown("**Matrice de confusion**")
     cm2_col1, cm2_col2, cm2_col3 = st.columns([1, 2, 1])
     with cm2_col2:
@@ -272,7 +270,7 @@ with colB:
             width=420,
         )
 
-# ====================== SECTION 2 : YOLOv8 ======================
+# Section 2 : Detection model
 st.markdown("---")
 st.markdown("## Modèle de détection : YOLOv8")
 

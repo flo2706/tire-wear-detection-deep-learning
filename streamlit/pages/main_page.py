@@ -1,12 +1,9 @@
 import streamlit as st
 
-# ==============================================================
-#                    MAIN LANDING PAGE (HOME)
-#            Intro page with project description + navigation
-# ==============================================================
 
+# Main page
 
-# ---------------------- TITLE ----------------------
+# Title
 st.markdown(
     """
     <div style="text-align: center; font-size: 3rem; color: gray;">
@@ -29,7 +26,7 @@ st.markdown(
 st.write("")
 
 
-# ---------------------- PROJECT DESCRIPTION ----------------------
+# Project description
 st.markdown(
     """
 ### Objectif du projet

@@ -11,9 +11,8 @@ from PIL import Image, ImageDraw
 from skimage.color import rgb2lab
 
 
-# ==============================================================
-#                           HEADER
-# ==============================================================
+
+# Header
 
 st.markdown(
     "<h1 style='text-align: center; color: gray;'>Datasets</h1>",
@@ -190,9 +189,8 @@ dataset/
     scrolling=True,
 )
 
-# ==============================================================
-#                       GLOBAL STYLES
-# ==============================================================
+
+# Global styles
 
 st.markdown(
     """
@@ -209,9 +207,9 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# ==============================================================
-#                       DATASET CONFIG
-# ==============================================================
+
+# Dataset configuration
+
 
 CLASSIF_REPO_ID = "flodussart/tires_project"
 CLASSIF_BASE_URL = (
@@ -224,9 +222,7 @@ DETECT_BASE_URL = (
 )
 
 
-# ==============================================================
-#                     HELPERS: FILE LOADING
-# ==============================================================
+# Helpers to load datasets
 
 @st.cache_data
 def get_classification_image_df() -> pd.DataFrame:
@@ -313,16 +309,13 @@ def get_detection_image_paths() -> list[str]:
     ]
 
 
-# ==============================================================
-#                     LOAD DATA FOR PREVIEW
-# ==============================================================
+# Load data for preview
 
 df_classif = get_classification_image_df()
 detect_image_paths = get_detection_image_paths()
 
-# ==============================================================
-#                SIDE-BY-SIDE VISUAL PREVIEW
-# ==============================================================
+
+# Side-by-side preview of both datasets
 
 st.markdown("---")
 st.subheader("Aperçu visuel des deux jeux de données")
@@ -332,7 +325,7 @@ image_paths = detect_image_paths
 
 col_left, col_right = st.columns(2)
 
-# ---------------------- LEFT: CLASSIFICATION ----------------------
+# Left : Classification
 
 with col_left:
     st.markdown("**Dataset 1 – Classification**")
@@ -353,7 +346,7 @@ with col_left:
         st.info("Aucune image trouvée pour le dataset de classification.")
 
 
-# ------------------------ RIGHT: DETECTION ------------------------
+# Right : Detection
 
 with col_right:
     st.markdown("**Dataset 2 – Détection (YOLOv8)**")

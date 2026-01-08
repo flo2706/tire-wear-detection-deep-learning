@@ -9,9 +9,7 @@ from ultralytics import YOLO
 import keras
 
 
-# ==============================================================
-#                     ML UTILITY FUNCTIONS
-# ==============================================================
+# ML utility functions
 
 def preprocess_zone(cell, size=(224, 224)):
     """
@@ -100,9 +98,7 @@ def show_prediction_grid(zones, labels, confidences, class_names):
             )
 
 
-# ==============================================================
-#                 MODEL LOADING (CACHED ONCE)
-# ==============================================================
+# Model loading with caching
 
 @st.cache_resource
 def load_models():
@@ -135,9 +131,7 @@ def load_models():
     return wear_model, yolo_model
 
 
-# ==============================================================
-#                          MAIN UI
-# ==============================================================
+# Main page
 
 st.markdown(
     """
@@ -167,9 +161,8 @@ with col2:
 
 st.write("")
 
-# ==============================================================
-#                     ANALYSIS INTRO SECTION
-# ==============================================================
+
+# Analysis section
 
 st.markdown(
     """
@@ -195,9 +188,8 @@ uploaded_image = st.file_uploader(
 
 st.markdown("---")
 
-# ==============================================================
-#                    MAIN PROCESSING LOGIC
-# ==============================================================
+
+# Main prediction logic
 
 if uploaded_image is not None:
     # Convert uploaded image to RGB (PIL) and BGR (OpenCV)
