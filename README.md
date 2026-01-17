@@ -28,7 +28,7 @@ Utilisé pour isoler automatiquement chaque pneu avant classification.
 
 ---
 
-### **2. Classification – MobileNetV2 finetuné**
+### **2. Classification – MobileNetV2 fine-tuné**
 - Transfer learning + fine tuning (10 dernières couches)  
 - Optimiseur : Adam (lr = 1e-5)
 - Loss : BinaryCrossentropy  
@@ -92,6 +92,8 @@ Conçue pour un public non expert, avec une interface pédagogique.
 | Classification       | MobileNetV2   | Val_acc ≈ **0.86** |
 | Analyse locale      | Grid 4×4      | Cohérence visuelle |
 
+Ces résultats sont jugés satisfaisants au regard de la taille et de la diversité limitée des jeux de données, et confirment la faisabilité de l’approche.
+
 ---
 
 ## Stack technique
@@ -132,5 +134,5 @@ Ce projet démontre :
 ## Contexte
 
 Projet final réalisé dans le cadre de la certification  
-**« Concepteur Développeur en Sciences des Données » (RNCP 35288 – Jedha)**,
+**« Concepteur Développeur en Science des Données » (RNCP 35288 – Jedha)**,
 en collaboration avec **Youenn Patat**.
